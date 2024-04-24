@@ -1,9 +1,16 @@
 import { Router, Request } from "express";
+import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
+
+import { secretKey } from "./config";
 
 interface UserRequest {
   username: string | undefined;
   password: string | undefined;
+}
+
+function generateJwt(username: string): string {
+  return jwt.sign({ username }, secretKey, { expiresIn: "1m" });
 }
 
 // This is a simple in-memory database
@@ -28,7 +35,9 @@ router.post("/signup", (req: Request<{}, {}, UserRequest>, res) => {
 
   users.set(username, password);
 
-  res.status(StatusCodes.CREATED).send("User created successfully");
+  let token = generateJwt(username);
+
+  res.status(StatusCodes.OK).json({ token });
 });
 
 router.post("/login", (req: Request<{}, {}, UserRequest>, res) => {
@@ -46,7 +55,11 @@ router.post("/login", (req: Request<{}, {}, UserRequest>, res) => {
     return;
   }
 
-  res.status(StatusCodes.OK).send("Login successful");
+  let token = generateJwt(username);
+
+  res.status(StatusCodes.OK).json({ token });
 });
+
+// NOTE: There isn't a logout endpoint because the client needs to delete the token.
 
 export default router;
