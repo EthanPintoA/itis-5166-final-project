@@ -2,10 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "Express server",
-  "main": "src/index.js",
-  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ethan Pinto",
@@ -15,5 +14,10 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "http-status-codes": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
   }
 }
