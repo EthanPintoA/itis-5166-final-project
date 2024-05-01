@@ -5,8 +5,8 @@ function errorOut(envVar: string): never {
   process.exit(1);
 }
 
-const hostname = process.env.HOSTNAME ?? "127.0.0.1";
-const port = parseInt(process.env.PORT ?? "3000");
+const hostname = process.env.HOSTNAME || "localhost"
+const port = parseInt(process.env.PORT || "3000");
 const secretKey = process.env.SECRET_KEY || errorOut("SECRET_KEY");
 
 const mysqlConnectionConfig: mysql.PoolOptions = {
