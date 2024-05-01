@@ -2,7 +2,7 @@ import { Router, Request } from "express";
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
-import { secretKey } from "./config";
+import { secretKey } from "../config";
 
 interface UserRequest {
   username: string | undefined;

@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import { expressjwt } from "express-jwt";
 import { StatusCodes } from "http-status-codes";
 
-import { secretKey } from "./config";
+import { secretKey } from "../../config";
 
 const router = Router();
 
