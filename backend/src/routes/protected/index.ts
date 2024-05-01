@@ -3,6 +3,7 @@ import { expressjwt } from "express-jwt";
 import { StatusCodes } from "http-status-codes";
 
 import { secretKey } from "../../config";
+import budgetRouter from "./budget";
 
 const router = Router();
 
@@ -14,9 +15,7 @@ router.use(
   })
 );
 
-router.get("/dashboard", (_req, res) => {
-  res.status(StatusCodes.OK).send("Dashboard");
-});
+router.use("/budget", budgetRouter);
 
 // Error handlers
 router.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
