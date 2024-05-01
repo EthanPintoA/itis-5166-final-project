@@ -22,14 +22,17 @@ const saltRounds = 10;
 const router = Router();
 
 router.post("/signup", async (req: Request<{}, {}, UserRequest>, res) => {
-  const { username, password } = req.body;
+  let { username, password } = req.body;
 
-  if (!username || !password) {
+  if (!username?.trim() || !password?.trim()) {
     res
       .status(StatusCodes.BAD_REQUEST)
       .send("Username and password are required!");
     return;
   }
+
+  username = username.trim();
+  password = password.trim();
 
   try {
     const [rows] = await pool.query<RowDataPacket[]>(
@@ -62,14 +65,17 @@ router.post("/signup", async (req: Request<{}, {}, UserRequest>, res) => {
 });
 
 router.post("/login", async (req: Request<{}, {}, UserRequest>, res) => {
-  const { username, password } = req.body;
+  let { username, password } = req.body;
 
-  if (!username || !password) {
+  if (!username?.trim() || !password?.trim()) {
     res
       .status(StatusCodes.BAD_REQUEST)
       .send("Username and password are required!");
     return;
   }
+
+  username = username.trim();
+  password = password.trim();
 
   try {
     const [rows] = await pool.query<RowDataPacket[]>(
