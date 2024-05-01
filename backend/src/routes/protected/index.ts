@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 import { secretKey } from "../../config";
 import budgetRouter from "./budget";
+import expensesRouter from "./expenses";
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router.use(
 );
 
 router.use("/budget", budgetRouter);
+router.use("/expenses", expensesRouter);
 
 // Error handlers
 router.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
