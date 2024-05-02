@@ -13,7 +13,7 @@ CREATE TABLE user (
 CREATE TABLE budget (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    name VARCHAR(255) NOT NULL UNIQUE CHECK (TRIM(name) <> ''),
+    name VARCHAR(255) NOT NULL CHECK (TRIM(name) <> ''),
     amount DECIMAL(13, 2) NOT NULL,
     UNIQUE (user_id, name),
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
