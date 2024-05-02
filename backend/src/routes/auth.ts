@@ -4,16 +4,12 @@ import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import { RowDataPacket } from "mysql2";
 import bcrypt from "bcrypt";
 
-import { secretKey } from "../config";
+import { generateJwt } from "../util";
 import { pool } from "../database";
 
 interface UserRequest {
   username: string | undefined;
   password: string | undefined;
-}
-
-function generateJwt(username: string): string {
-  return jwt.sign({ username }, secretKey, { expiresIn: "1m" });
 }
 
 /** The number of rounds to use to generate a salt in bcrypt. */
