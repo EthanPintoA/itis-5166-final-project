@@ -30,13 +30,4 @@ router.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
   res.status(StatusCodes.UNAUTHORIZED).send(err.message);
 });
 
-router.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
-  // Handle validation error from Joi
-  if (err.name !== "ValidationError") {
-    return next(err);
-  }
-
-  res.status(StatusCodes.BAD_REQUEST).json({ message: err.message });
-});
-
 export default router;

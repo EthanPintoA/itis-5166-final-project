@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import { RowDataPacket } from "mysql2";
 import bcrypt from "bcrypt";
+import Joi from "joi";
 
 import { generateJwt } from "../util";
 import { pool } from "../database";
@@ -17,18 +18,21 @@ const saltRounds = 10;
 
 const router = Router();
 
-router.post("/signup", async (req: Request<{}, {}, UserRequest>, res) => {
+const signupSchema = Joi.object({
+  username: Joi.string().trim().alphanum().max(20).required(),
+  password: Joi.string().trim().required(),
+});
+
+router.post("/signup", async (req: Request<{}, {}, UserRequest>, res, next) => {
   let { username, password } = req.body;
 
-  if (!username?.trim() || !password?.trim()) {
-    res
-      .status(StatusCodes.BAD_REQUEST)
-      .send("Username and password are required!");
-    return;
+  try {
+    await signupSchema.validateAsync({ username, password });
+    username = username as string;
+    password = password as string;
+  } catch (err) {
+    return next(err);
   }
-
-  username = username.trim();
-  password = password.trim();
 
   try {
     const [rows] = await pool.query<RowDataPacket[]>(
@@ -60,18 +64,21 @@ router.post("/signup", async (req: Request<{}, {}, UserRequest>, res) => {
   }
 });
 
-router.post("/login", async (req: Request<{}, {}, UserRequest>, res) => {
+const loginSchema = Joi.object({
+  username: Joi.string().trim().required(),
+  password: Joi.string().trim().required(),
+});
+
+router.post("/login", async (req: Request<{}, {}, UserRequest>, res, next) => {
   let { username, password } = req.body;
 
-  if (!username?.trim() || !password?.trim()) {
-    res
-      .status(StatusCodes.BAD_REQUEST)
-      .send("Username and password are required!");
-    return;
+  try {
+    await loginSchema.validateAsync({ username, password });
+    username = username as string;
+    password = password as string;
+  } catch (err) {
+    return next(err);
   }
-
-  username = username.trim();
-  password = password.trim();
 
   try {
     const [rows] = await pool.query<RowDataPacket[]>(
