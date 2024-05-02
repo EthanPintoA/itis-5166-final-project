@@ -10,7 +10,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(router);
+app.use("/api", router);
 
 const server = app.listen(port, () => {
   console.log(`Server is running at http://${hostname}:${port}`);

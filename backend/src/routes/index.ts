@@ -10,8 +10,8 @@ router.get("/", (_, res) => {
   res.status(StatusCodes.OK).send("Hello World!");
 });
 
-router.use("/", authRouter);
-router.use("/", protectedRouter);
+router.use("/auth", authRouter);
+router.use("/protected", protectedRouter);
 
 router.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
   // Handle validation error from Joi
