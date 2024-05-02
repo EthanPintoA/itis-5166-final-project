@@ -28,7 +28,7 @@ CREATE TABLE expense (
         month >= 1
         AND month <= 12
     ),
-    UNIQUE (budget_id, date),
+    UNIQUE (budget_id, month),
     FOREIGN KEY (budget_id) REFERENCES budget(id) ON DELETE CASCADE,
     INDEX idx_budget_id (budget_id)
 );
