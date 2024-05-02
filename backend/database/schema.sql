@@ -32,3 +32,14 @@ CREATE TABLE expense (
     FOREIGN KEY (budget_id) REFERENCES budget(id) ON DELETE CASCADE,
     INDEX idx_budget_id (budget_id)
 );
+
+CREATE VIEW budget_expense AS
+SELECT
+    u.id AS user_id,
+    b.name AS budget_name,
+    e.amount AS expense_amount,
+    e.month AS expense_month
+FROM
+    budget b
+    JOIN expense e ON b.id = e.budget_id
+    JOIN user u ON b.user_id = u.id;
