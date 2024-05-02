@@ -16,4 +16,17 @@ async function getUserId(
   return row[0].id as number;
 }
 
-export default { getUserId };
+async function getBudgetCount(
+  user_id: number,
+  name: string,
+  connection: PoolConnection
+): Promise<number> {
+  const [row] = await connection.query<RowDataPacket[]>(
+    "SELECT COUNT(*) as count FROM budget WHERE user_id = ? AND name = ?",
+    [user_id, name]
+  );
+
+  return row[0].count as number;
+}
+
+export default { getUserId, getBudgetCount };
