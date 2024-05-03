@@ -32,7 +32,7 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 const budgetSchema = Joi.object({
-  name: Joi.string().trim().required(),
+  name: Joi.string().trim().max(255).required(),
   /** Decimal number of 11 digits before the decimal point */
   amount: Joi.number().positive().max(99999999999).required(),
 });
