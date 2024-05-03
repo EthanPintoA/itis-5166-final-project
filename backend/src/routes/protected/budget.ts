@@ -62,7 +62,7 @@ router.post("/add", async (req: Request, res: Response, next) => {
     if (!user_id) {
       return res
         .status(StatusCodes.UNAUTHORIZED)
-        .send({ message: "User does not exist" });
+        .json({ message: "User does not exist" });
     }
 
     const count = await dbUtil.getBudgetCount(user_id, name, connection);
@@ -80,14 +80,14 @@ router.post("/add", async (req: Request, res: Response, next) => {
 
     connection.release();
 
-    res.status(StatusCodes.CREATED).send({
+    res.status(StatusCodes.CREATED).json({
       message: "Budget added successfully",
     });
   } catch (err) {
     console.error(err);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+      .json({ message: ReasonPhrases.INTERNAL_SERVER_ERROR });
   }
 });
 

@@ -41,7 +41,9 @@ router.post("/signup", async (req: Request<{}, {}, UserRequest>, res, next) => {
     );
 
     if (rows.length !== 0) {
-      res.status(StatusCodes.CONFLICT).send("User already exists");
+      res
+        .status(StatusCodes.CONFLICT)
+        .json({ message: "Username already exists" });
       return;
     }
 
@@ -59,7 +61,7 @@ router.post("/signup", async (req: Request<{}, {}, UserRequest>, res, next) => {
     console.error(err);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+      .json({ message: ReasonPhrases.INTERNAL_SERVER_ERROR });
     return;
   }
 });
@@ -91,7 +93,9 @@ router.post("/login", async (req: Request<{}, {}, UserRequest>, res, next) => {
       userExists && (await bcrypt.compare(password, rows[0].password));
 
     if (!passwordMatches) {
-      res.status(StatusCodes.UNAUTHORIZED).send("Invalid username or password");
+      res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ message: "Invalid username or password" });
       return;
     }
 
@@ -102,7 +106,7 @@ router.post("/login", async (req: Request<{}, {}, UserRequest>, res, next) => {
     console.error(err);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+      .json({ message: ReasonPhrases.INTERNAL_SERVER_ERROR });
     return;
   }
 });

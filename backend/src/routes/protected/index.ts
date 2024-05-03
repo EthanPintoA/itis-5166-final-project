@@ -27,7 +27,7 @@ router.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
     return;
   }
 
-  res.status(StatusCodes.UNAUTHORIZED).send(err.message);
+  res.status(StatusCodes.UNAUTHORIZED).json({ message: err.message });
 });
 
 export default router;
