@@ -6,10 +6,6 @@ import protectedRouter from "./protected";
 
 const router = Router();
 
-router.get("/", (_, res) => {
-  res.status(StatusCodes.OK).send("Hello World!");
-});
-
 router.use("/auth", authRouter);
 router.use("/protected", protectedRouter);
 
