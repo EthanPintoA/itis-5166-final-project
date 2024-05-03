@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import express from "express";
+import compression from "compression";
 import { StatusCodes } from "http-status-codes";
 
 import { hostname, port } from "./config";
@@ -10,6 +11,8 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(compression({ threshold: 0 }));
 
 app.use("/api", router);
 
