@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 import express from "express";
 import compression from "compression";
+import helmet from "helmet";
 import { StatusCodes } from "http-status-codes";
 
 import { hostname, port } from "./config";
@@ -8,6 +9,8 @@ import { pool } from "./database";
 import router from "./routes";
 
 const app = express();
+
+app.use(helmet());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
