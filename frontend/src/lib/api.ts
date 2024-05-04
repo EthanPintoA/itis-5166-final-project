@@ -29,4 +29,24 @@ async function login(username: string, password: string) {
 	return json.token;
 }
 
-export default { signup, login };
+function protectedHeader(token: string) {
+	return { Authorization: `Bearer ${token}` };
+}
+
+/**
+ * Renews the token.
+ * @param token Current token
+ * @returns New token
+ * @throws { ky.HTTPError } If the request fails.
+ */
+async function renewToken(token: string) {
+	const res = await ky.post(`${SERVER_URL}/protected/renew`, {
+		headers: protectedHeader(token)
+	});
+
+	const json = (await res.json()) as { token: string };
+
+	return json.token;
+}
+
+export default { signup, login, renewToken };

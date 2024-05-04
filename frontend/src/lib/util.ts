@@ -46,4 +46,4 @@ function getTokenExpiration(): number | null {
 	}
 }
 
-export default { setToken, hasToken, removeToken, getTokenExpiration };
+export default { getToken, setToken, hasToken, removeToken, getTokenExpiration };
