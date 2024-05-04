@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+	import { get, type Writable } from 'svelte/store';
 	import { goto } from '$app/navigation';
 	import { HTTPError } from 'ky';
 	import { object, string, ValidationError } from 'yup';
@@ -7,8 +8,10 @@
 
 	import { util, api } from '$lib';
 
+	const isLoggedIn = getContext('isLoggedIn') as Writable<boolean>;
+
 	onMount(() => {
-		if (util.isLoggedIn()) {
+		if (get(isLoggedIn)) {
 			goto('/dashboard').catch(console.error);
 		}
 	});
@@ -43,6 +46,7 @@
 		try {
 			const token = await api.signup(username, password);
 
+			isLoggedIn.set(true);
 			util.setToken(token);
 			goto('/dashboard').catch(console.error);
 		} catch (error) {

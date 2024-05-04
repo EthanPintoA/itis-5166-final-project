@@ -10,6 +10,14 @@
 
 	initializeStores();
 
+	import { setContext } from 'svelte';
+	import { writable } from 'svelte/store';
+
+	import { util } from '$lib';
+
+	const isLoggedIn = writable(util.hasToken());
+	setContext('isLoggedIn', isLoggedIn);
+
 	import { Navbar } from '$lib';
 </script>
 
