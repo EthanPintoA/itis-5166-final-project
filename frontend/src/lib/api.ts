@@ -19,4 +19,14 @@ async function signup(username: string, password: string) {
 	return json.token;
 }
 
-export default { signup };
+async function login(username: string, password: string) {
+	const res = await ky.post(`${SERVER_URL}/auth/login`, {
+		json: { username, password }
+	});
+
+	const json = (await res.json()) as { token: string };
+
+	return json.token;
+}
+
+export default { signup, login };
