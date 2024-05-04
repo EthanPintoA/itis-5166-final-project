@@ -45,6 +45,8 @@
   },
   "type": "module",
   "dependencies": {
-    "@floating-ui/dom": "1.6.4"
+    "@floating-ui/dom": "1.6.4",
+    "ky": "^1.2.4",
+    "yup": "^1.4.0"
   }
 }
