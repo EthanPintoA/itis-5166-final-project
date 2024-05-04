@@ -10,8 +10,9 @@
 
 	initializeStores();
 
-	import { setContext } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
+	import { goto } from '$app/navigation';
 
 	import { util } from '$lib';
 
@@ -19,6 +20,29 @@
 	setContext('isLoggedIn', isLoggedIn);
 
 	import { Navbar } from '$lib';
+
+	onMount(() => {
+		let tokenExpiration = util.getTokenExpiration();
+
+		if (tokenExpiration) {
+			let now = new Date().getTime();
+			let expiration = new Date(tokenExpiration).getTime();
+
+			if (now >= expiration) {
+				console.log('Token expired');
+				util.removeToken();
+				isLoggedIn.set(false);
+			} else {
+				console.log('Token expires in', expiration - now, 'ms');
+				setTimeout(() => {
+					console.log('Token expired');
+					util.removeToken();
+					isLoggedIn.set(false);
+					goto('/login').catch(console.error);
+				}, expiration - now);
+			}
+		}
+	});
 </script>
 
 <Toast />

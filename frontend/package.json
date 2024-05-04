@@ -46,6 +46,7 @@
   "type": "module",
   "dependencies": {
     "@floating-ui/dom": "1.6.4",
+    "jwt-decode": "^4.0.0",
     "ky": "^1.2.4",
     "yup": "^1.4.0"
   }

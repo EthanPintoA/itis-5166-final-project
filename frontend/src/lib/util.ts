@@ -1,3 +1,5 @@
+import { jwtDecode } from 'jwt-decode';
+
 /**
  * @returns JSON Web Token from local storage
  */
@@ -28,4 +30,20 @@ function removeToken(): void {
 	localStorage.removeItem('token');
 }
 
-export default { setToken, hasToken, removeToken };
+function getTokenExpiration(): number | null {
+	const token = getToken();
+	if (token === null) {
+		return null;
+	}
+	try {
+		const decoded = jwtDecode(token);
+		if (decoded.exp === undefined) {
+			return null;
+		}
+		return decoded.exp * 1000;
+	} catch (e) {
+		return null;
+	}
+}
+
+export default { setToken, hasToken, removeToken, getTokenExpiration };
