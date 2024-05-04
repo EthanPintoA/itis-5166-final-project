@@ -71,6 +71,7 @@
 	import { HTTPError } from 'ky';
 
 	const visible = writable(false);
+	setContext('visible', visible);
 
 	async function renewToken() {
 		visible.set(false);
