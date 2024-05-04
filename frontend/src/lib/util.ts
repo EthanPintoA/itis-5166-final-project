@@ -21,4 +21,11 @@ function setToken(token: string): void {
 	localStorage.setItem('token', token);
 }
 
-export default { setToken, hasToken };
+/**
+ * Remove the JSON Web Token from local storage
+ */
+function removeToken(): void {
+	localStorage.removeItem('token');
+}
+
+export default { setToken, hasToken, removeToken };
