@@ -82,8 +82,9 @@
 		<!-- Form request is handled by `handleSignIn` -->
 		<form class="space-y-6">
 			<div>
-				<label for="username" class="block text-sm font-medium leading-6 text-white">Username</label
-				>
+				<label for="username" class="block text-sm font-medium leading-6 text-white">
+					Username (alphanumerical and &lt;= 20 characters)
+				</label>
 				<div class="mt-2">
 					<input
 						id="username"
