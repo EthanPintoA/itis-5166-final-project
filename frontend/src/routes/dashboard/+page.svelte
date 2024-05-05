@@ -81,8 +81,8 @@
 			]
 		};
 		const options = {
+			responsive: true,
 			aspectRatio: 1.5,
-
 			plugins: {
 				title: {
 					display: true,
@@ -156,6 +156,7 @@
 		};
 
 		const options = {
+			responsive: true,
 			aspectRatio: 1.5,
 			plugins: {
 				title: {
@@ -226,6 +227,7 @@
 			]
 		};
 		const options = {
+			responsive: true,
 			aspectRatio: 3,
 			plugins: {
 				title: {
@@ -262,7 +264,7 @@
 
 <div class="flex">
 	<div class="w-1/2">
-		<canvas bind:this={donutChart} id="donutChart" class="w-1"></canvas>
+		<canvas bind:this={donutChart} id="donutChart"></canvas>
 	</div>
 	<div class="w-1/2">
 		<canvas bind:this={lineChart} id="lineChart"></canvas>
