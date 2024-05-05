@@ -106,4 +106,47 @@ async function deleteBudget(token: string, name: string) {
 	});
 }
 
-export default { signup, login, renewToken, getBudget, addBudget, updateBudget, deleteBudget };
+/**
+ * Gets all expenses.
+ * @param token JSON web token
+ * @returns Expenses
+ * @throws { ky.HTTPError } If the request fails.
+ */
+async function getExpenses(token: string) {
+	const res = await ky.get(`${SERVER_URL}/protected/expenses`, {
+		headers: protectedHeader(token)
+	});
+
+	const json = (await res.json()) as {
+		expenses: { budget_name: string; expense_month: number; expense_amount: number }[];
+	};
+
+	return json.expenses;
+}
+
+/**
+ * Updates an expense.
+ * @param token JSON web token
+ * @param name Name of the expense
+ * @param month Month of the expense
+ * @param amount Amount of the expense
+ * @throws { ky.HTTPError } If the request fails.
+ */
+async function updateExpense(token: string, name: string, month: number, amount: number) {
+	await ky.put(`${SERVER_URL}/protected/expenses/update`, {
+		headers: protectedHeader(token),
+		json: { name, month, amount }
+	});
+}
+
+export default {
+	signup,
+	login,
+	renewToken,
+	getBudget,
+	addBudget,
+	updateBudget,
+	deleteBudget,
+	getExpenses,
+	updateExpense
+};
