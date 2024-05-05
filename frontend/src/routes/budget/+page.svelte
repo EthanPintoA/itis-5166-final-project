@@ -228,12 +228,6 @@
 							</td>
 						</tr>
 					</tbody>
-					<!-- <tfoot>
-						<tr>
-							<th colspan="3">Calculated Total Weight</th>
-							<td>Footer</td>
-						</tr>
-					</tfoot> -->
 				</table>
 			</div>
 		</div>
