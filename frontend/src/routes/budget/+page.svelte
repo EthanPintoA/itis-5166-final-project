@@ -39,7 +39,11 @@
 			return;
 		}
 
-		if (get(tableArr).find((row) => row.name === newBudget.name)) {
+		if (
+			get(tableArr).find(
+				(row) => row.name.toLocaleLowerCase() === newBudget.name.toLocaleLowerCase()
+			)
+		) {
 			const t: ToastSettings = {
 				message: 'Budget already exists',
 				background: 'variant-filled-error'
@@ -79,7 +83,11 @@
 			return;
 		}
 
-		if (get(tableArr).find((r, i) => r.name === newBudget.name && i !== row)) {
+		if (
+			get(tableArr).find(
+				(r, i) => r.name.toLocaleLowerCase() === newBudget.name.toLocaleLowerCase() && i !== row
+			)
+		) {
 			const t: ToastSettings = {
 				message: 'Budget already exists',
 				background: 'variant-filled-error'
@@ -210,14 +218,23 @@
 											}}
 								>
 									<div class="flex">
-										<input class="input" type="text" placeholder="Name" bind:value={newBudget.name} />
+										<input
+											class="input"
+											type="text"
+											placeholder="Name"
+											bind:value={newBudget.name}
+										/>
 										<input
 											class="input ml-4"
 											type="number"
+											step="0.01"
 											placeholder="Amount"
 											bind:value={newBudget.amount}
 										/>
-										<button type="submit" class="btn variant-outline-surface hover:variant-filled ml-4">
+										<button
+											type="submit"
+											class="btn variant-outline-surface hover:variant-filled ml-4"
+										>
 											{editingRow === null ? 'Add' : 'Update'}
 										</button>
 									</div>
