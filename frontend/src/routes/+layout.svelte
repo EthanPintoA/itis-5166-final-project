@@ -122,6 +122,9 @@
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header">
+		<!-- A11y support -->
+		<a href="#main" class="skip">Skip to content</a>
+
 		<Navbar />
 		{#if $visible}
 			<aside class="alert mx-32 variant-soft-warning">
@@ -130,8 +133,8 @@
 				<div class="alert-message">
 					<h3 class="h3">Warning</h3>
 					<p>
-						Your login will expire in 20 seconds. You can click the renew button if you do not want to log
-						out
+						Your login will expire in 20 seconds. You can click the renew button if you do not want
+						to log out
 					</p>
 				</div>
 				<!-- Actions -->
@@ -146,5 +149,24 @@
 	</svelte:fragment>
 
 	<!-- Page Route Content -->
-	<slot />
+	<div id="main"><slot /></div>
 </AppShell>
+
+<style>
+	.skip {
+		position: absolute;
+		top: -1000px;
+		left: -1000px;
+		height: 1px;
+		width: 1px;
+		text-align: left;
+		overflow: hidden;
+	}
+
+	.skip:focus {
+		position: static;
+		height: auto;
+		width: auto;
+		overflow: visible;
+	}
+</style>
