@@ -187,23 +187,26 @@
 							</tr>
 						{/each}
 						<tr>
-							<td>
-								<input
-									class="input"
-									type="number"
-									placeholder="Amount"
-									disabled={!editingCell}
-									bind:value={newExpenseAmount}
-								/>
-							</td>
-							<td>
-								<button
-									class="btn variant-outline-surface hover:variant-filled"
-									disabled={!editingCell}
-									on:click={() => updateCell()}
-								>
-									Update
-								</button>
+							<td colspan="2">
+								<form on:submit|preventDefault={updateCell}>
+									<div class="flex">
+										<input
+											class="input"
+											type="number"
+											step="0.01"
+											placeholder="Amount"
+											disabled={!editingCell}
+											bind:value={newExpenseAmount}
+										/>
+										<button
+											type="submit"
+											class="btn variant-outline-surface hover:variant-filled ml-2"
+											disabled={!editingCell}
+										>
+											Update
+										</button>
+									</div>
+								</form>
 							</td>
 						</tr>
 					</tbody>

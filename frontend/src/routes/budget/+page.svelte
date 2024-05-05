@@ -200,29 +200,28 @@
 							</tr>
 						{/each}
 						<tr>
-							<td>
-								<input class="input" type="text" placeholder="Name" bind:value={newBudget.name} />
-							</td>
-							<td>
-								<input
-									class="input"
-									type="number"
-									placeholder="Amount"
-									bind:value={newBudget.amount}
-								/>
-							</td>
-							<td>
-								<button
-									class="btn variant-outline-surface hover:variant-filled"
-									on:click={editingRow === null
+							<td colspan="3">
+								<form
+									on:submit|preventDefault={editingRow === null
 										? addBudget
 										: () => {
 												// @ts-ignore
 												updateRow(editingRow);
 											}}
 								>
-									{editingRow === null ? 'Add' : 'Update'}
-								</button>
+									<div class="flex">
+										<input class="input" type="text" placeholder="Name" bind:value={newBudget.name} />
+										<input
+											class="input ml-4"
+											type="number"
+											placeholder="Amount"
+											bind:value={newBudget.amount}
+										/>
+										<button type="submit" class="btn variant-outline-surface hover:variant-filled ml-4">
+											{editingRow === null ? 'Add' : 'Update'}
+										</button>
+									</div>
+								</form>
 							</td>
 						</tr>
 					</tbody>
