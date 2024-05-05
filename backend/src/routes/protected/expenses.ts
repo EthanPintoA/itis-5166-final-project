@@ -104,7 +104,7 @@ router.put("/update", async (req: Request, res: Response, next) => {
       ]);
     } else {
       await connection.query(
-        "INSERT INTO expense (budget_id, amount, month) VALUES (?, ?, ?)",
+        "INSERT INTO expense (budget_id, month, amount) VALUES (?, ?, ?)",
         [budget_id, month, amount]
       );
     }
