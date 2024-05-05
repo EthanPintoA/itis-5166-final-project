@@ -74,7 +74,7 @@
 
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 		<!-- Form request handled by `handleLogin` -->
-		<form class="space-y-6">
+		<form class="space-y-6" on:submit|preventDefault={handleLogin}>
 			<div>
 				<label for="username" class="block text-sm font-medium leading-6 text-white">Username</label
 				>
@@ -112,9 +112,8 @@
 
 			<div>
 				<button
-					type="button"
+					type="submit"
 					class="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-					on:click={handleLogin}
 				>
 					Sign in
 				</button>
