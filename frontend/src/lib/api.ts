@@ -62,6 +62,10 @@ async function getBudget(token: string) {
 
 	const json = (await res.json()) as { budget: { name: string; amount: number }[] };
 
+	json.budget.forEach((budget) => {
+		budget.amount = parseFloat(budget.amount as unknown as string);
+	});
+
 	return json.budget;
 }
 
@@ -120,6 +124,11 @@ async function getExpenses(token: string) {
 	const json = (await res.json()) as {
 		expenses: { budget_name: string; expense_month: number; expense_amount: number }[];
 	};
+
+	json.expenses.forEach((expense) => {
+		expense.expense_amount = parseFloat(expense.expense_amount as unknown as string);
+		expense.expense_month = parseInt(expense.expense_month as unknown as string);
+	});
 
 	return json.expenses;
 }
