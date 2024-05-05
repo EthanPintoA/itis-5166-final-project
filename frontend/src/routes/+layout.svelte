@@ -10,7 +10,7 @@
 
 	initializeStores();
 
-	import { setContext } from 'svelte';
+	import { onDestroy, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { goto } from '$app/navigation';
 
@@ -66,6 +66,16 @@
 			console.log('User is not logged in, token expired, or logged out');
 		}
 	}
+
+	onDestroy(() => {
+		if (tokenTimeout) {
+			clearTimeout(tokenTimeout);
+			console.log('Token timeout cleared');
+		}
+		if (showWarningTimeout) {
+			clearTimeout(showWarningTimeout);
+		}
+	});
 
 	import '@fortawesome/fontawesome-free/css/all.min.css';
 	import { HTTPError } from 'ky';
