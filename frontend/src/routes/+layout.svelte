@@ -74,8 +74,6 @@
 	setContext('visible', visible);
 
 	async function renewToken() {
-		visible.set(false);
-
 		const oldToken = util.getToken();
 
 		if (!oldToken) {
@@ -91,6 +89,7 @@
 			// I have to set to false and then to true to trigger the reactivity.
 			isLoggedIn.set(false);
 			isLoggedIn.set(true);
+			visible.set(false);
 			console.log('Token renewed');
 		} catch (error) {
 			if (error instanceof HTTPError) {
