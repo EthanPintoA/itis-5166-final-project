@@ -49,4 +49,61 @@ async function renewToken(token: string) {
 	return json.token;
 }
 
-export default { signup, login, renewToken };
+/**
+ * Gets the budget.
+ * @param token JSON web token
+ * @returns Budget
+ * @throws { ky.HTTPError } If the request fails.
+ */
+async function getBudget(token: string) {
+	const res = await ky.get(`${SERVER_URL}/protected/budget`, {
+		headers: protectedHeader(token)
+	});
+
+	const json = (await res.json()) as { budget: { name: string; amount: number }[] };
+
+	return json.budget;
+}
+
+/**
+ * Adds a budget.
+ * @param token JSON web token
+ * @param name Name of the budget
+ * @param amount Amount of the budget
+ * @throws { ky.HTTPError } If the request fails.
+ */
+async function addBudget(token: string, name: string, amount: number) {
+	await ky.post(`${SERVER_URL}/protected/budget/add`, {
+		headers: protectedHeader(token),
+		json: { name, amount }
+	});
+}
+
+/**
+ * Updates a budget.
+ * @param token JSON web token
+ * @param name Name of the budget
+ * @param amount Amount of the budget
+ * @throws { ky.HTTPError } If the request fails.
+ */
+async function updateBudget(token: string, oldName: string, newName: string, amount: number) {
+	await ky.put(`${SERVER_URL}/protected/budget/update`, {
+		headers: protectedHeader(token),
+		json: { oldName, newName, amount }
+	});
+}
+
+/**
+ * Deletes a budget.
+ * @param token JSON web token
+ * @param name Name of the budget
+ * @throws { ky.HTTPError } If the request fails.
+ */
+async function deleteBudget(token: string, name: string) {
+	await ky.delete(`${SERVER_URL}/protected/budget/delete`, {
+		headers: protectedHeader(token),
+		json: { name }
+	});
+}
+
+export default { signup, login, renewToken, getBudget, addBudget, updateBudget, deleteBudget };
