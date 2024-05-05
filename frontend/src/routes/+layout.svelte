@@ -114,28 +114,27 @@
 <AppShell>
 	<svelte:fragment slot="header">
 		<Navbar />
+		{#if $visible}
+			<aside class="alert mx-32 variant-soft-warning">
+				<i class="fa-solid fa-triangle-exclamation text-4xl" />
+				<!-- Message -->
+				<div class="alert-message">
+					<h3 class="h3">Warning</h3>
+					<p>
+						Your login is about it expire. You can click the renew button if you do not want to log
+						out
+					</p>
+				</div>
+				<!-- Actions -->
+				<div class="alert-actions">
+					<button class="btn btn-primary" on:click={renewToken}>Renew</button>
+					<button class="btn btn-secondary" on:click={() => ($visible = false)}>
+						<i class="fa-solid fa-xmark text-3xl" />
+					</button>
+				</div>
+			</aside>
+		{/if}
 	</svelte:fragment>
-
-	{#if $visible}
-		<aside class="alert mx-32 variant-soft-warning">
-			<i class="fa-solid fa-triangle-exclamation text-4xl" />
-			<!-- Message -->
-			<div class="alert-message">
-				<h3 class="h3">Warning</h3>
-				<p>
-					Your login is about it expire. You can click the renew button if you do not want to log
-					out
-				</p>
-			</div>
-			<!-- Actions -->
-			<div class="alert-actions">
-				<button class="btn btn-primary" on:click={renewToken}>Renew</button>
-				<button class="btn btn-secondary" on:click={() => ($visible = false)}>
-					<i class="fa-solid fa-xmark text-3xl" />
-				</button>
-			</div>
-		</aside>
-	{/if}
 
 	<!-- Page Route Content -->
 	<slot />
