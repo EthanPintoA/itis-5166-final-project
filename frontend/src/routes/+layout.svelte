@@ -121,7 +121,7 @@
 				<div class="alert-message">
 					<h3 class="h3">Warning</h3>
 					<p>
-						Your login is about it expire. You can click the renew button if you do not want to log
+						Your login will expire in 20 seconds. You can click the renew button if you do not want to log
 						out
 					</p>
 				</div>
