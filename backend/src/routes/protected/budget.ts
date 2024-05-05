@@ -99,7 +99,8 @@ router.put("/update", async (req: Request, res: Response, next) => {
     return;
   }
 
-  const name = req.body.name;
+  const oldName = req.body.oldName;
+  const name = req.body.newName;
   let amount = parseFloat(req.body.amount);
   amount = Number(amount.toFixed(2));
 
@@ -119,17 +120,27 @@ router.put("/update", async (req: Request, res: Response, next) => {
         .json({ message: "User does not exist" });
     }
 
-    const count = await dbUtil.getBudgetCount(user_id, name, connection);
+    const oldCount = await dbUtil.getBudgetCount(user_id, oldName, connection);
 
-    if (!count) {
+    if (!oldCount) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         message: "Budget does not exist",
       });
     }
 
+    if (oldName !== name) {
+      const newCount = await dbUtil.getBudgetCount(user_id, name, connection);
+
+      if (newCount) {
+        return res.status(StatusCodes.BAD_REQUEST).json({
+          message: "Budget already exists",
+        });
+      }
+    }
+
     await connection.query(
-      "UPDATE budget SET amount = ? WHERE user_id = ? AND name = ?",
-      [amount, user_id, name]
+      "UPDATE budget SET name = ?, amount = ? WHERE user_id = ? AND name = ?",
+      [name, amount, user_id, oldName]
     );
 
     connection.release();
