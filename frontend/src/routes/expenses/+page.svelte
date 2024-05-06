@@ -195,6 +195,7 @@
 											type="number"
 											step="0.01"
 											placeholder="Amount"
+											name="amount"
 											disabled={!editingCell}
 											bind:value={newExpenseAmount}
 										/>

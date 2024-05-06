@@ -222,6 +222,7 @@
 											class="input"
 											type="text"
 											placeholder="Name"
+											name="name"
 											bind:value={newBudget.name}
 										/>
 										<input
@@ -229,6 +230,7 @@
 											type="number"
 											step="0.01"
 											placeholder="Amount"
+											name="amount"
 											bind:value={newBudget.amount}
 										/>
 										<button
