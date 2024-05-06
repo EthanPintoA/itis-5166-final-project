@@ -16,4 +16,4 @@
 	}
 </script>
 
-<h1 class="text-center">Logout</h1>
+<h1 class="text-center h1 mt-10">Logout</h1>
