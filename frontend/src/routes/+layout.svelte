@@ -19,6 +19,8 @@
 	const isLoggedIn = writable(util.hasToken());
 	setContext('isLoggedIn', isLoggedIn);
 
+	import moment from 'moment-timezone';
+
 	import { Navbar, api } from '$lib';
 
 	let tokenTimeout: NodeJS.Timeout;
@@ -38,17 +40,18 @@
 			let expiration = util.getTokenExpiration();
 
 			if (expiration) {
-				let now = new Date().getTime();
+				// Get the current time in EST
+				let now = moment().tz('America/New_York').valueOf();
 
 				// Applies for the user enters the site and the token is expired
 				if (now >= expiration) {
-					console.log('Token expired');
+					console.log('Time since token expired', now - expiration, 'ms');
 					util.removeToken();
 					goto('/logout').catch(console.error);
 				} else {
 					console.log('Token expires in', expiration - now, 'ms');
 					tokenTimeout = setTimeout(() => {
-						console.log('Token expired');
+						console.log('Token expired after', expiration - now, 'ms');
 						util.removeToken();
 						visible.set(false);
 						goto('/logout').catch(console.error);

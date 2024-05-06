@@ -53,6 +53,7 @@
     "chart.js": "^4.4.2",
     "jwt-decode": "^4.0.0",
     "ky": "^1.2.4",
+    "moment-timezone": "^0.5.45",
     "yup": "^1.4.0"
   }
 }
